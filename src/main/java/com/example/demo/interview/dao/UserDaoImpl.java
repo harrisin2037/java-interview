@@ -1,26 +1,19 @@
 package com.example.demo.interview.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
-// import com.example.demo.interview.exception.ResourceNotFoundException;
 import com.example.demo.interview.model.User;
-// import com.example.demo.interview.model.UserRowMapper;
 import com.example.demo.interview.model.UserRowMapper;
 
-// import org.apache.commons.logging.Log;
-// import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-// import org.springframework.data.redis.core.RedisTemplate;
-// import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -89,18 +82,18 @@ public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
 		user.setId1(update.getId1());
 		user.setId2(update.getId2());
 
-		User record = null;
+		User record = null;	
 
 		try {
 			String sql = "SELECT * FROM user WHERE id1 = ? AND id2 = ?;";
 			record = getJdbcTemplate().queryForObject(sql, new Object[]{user.getId1(), user.getId2()}, new UserRowMapper());	
 		}
 		catch (EmptyResultDataAccessException e) {
-			String sql = "INSERT INTO user (userId, id1, id2) VALUES (?, ?, ?)" ;
+			String sql = "INSERT INTO user (userId, id1, id2) VALUES (?, ?, ?)";
 			getJdbcTemplate().update(sql, new Object[]{
-					user.getUserId(), user.getId1(), user.getId2()
+					user.getUserId().toString(), user.getId1(), user.getId2()
 			});
-			record = getJdbcTemplate().queryForObject(sql, new Object[]{user.getId1(), user.getId2()}, new UserRowMapper());	
+			record = getJdbcTemplate().queryForObject("SELECT * FROM user WHERE id1 = ? AND id2 = ?", new Object[]{user.getId1(), user.getId2()}, new UserRowMapper());	
 			return record;
 		}
 

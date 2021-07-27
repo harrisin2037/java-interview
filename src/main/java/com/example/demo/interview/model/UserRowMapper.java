@@ -1,5 +1,7 @@
 package com.example.demo.interview.model;
 
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
@@ -12,7 +14,11 @@ public class UserRowMapper implements RowMapper<User> {
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 
         User user = new User();
-        user.setId(UUID.fromString(rs.getString("id")));
+        ByteBuffer bb = ByteBuffer.wrap(rs.getBytes("userId"));
+        long high = bb.getLong();
+        long low = bb.getLong();
+        UUID userId = new UUID(high, low);
+        user.setId(userId);
         user.setId1(rs.getString("id1"));
         user.setId2(rs.getString("id2"));
 

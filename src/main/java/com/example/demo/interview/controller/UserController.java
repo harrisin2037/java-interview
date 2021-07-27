@@ -34,7 +34,7 @@ public class UserController extends AbstractRESTfulController  {
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Createuser", notes = "Create the new user")
+    @ApiOperation(value = "Create user", notes = "Create the new user")
 	public String insertUser(@RequestBody User user) {
 		return userService.insertUser(user).getUserId().toString();
 	}
