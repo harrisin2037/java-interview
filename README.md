@@ -38,6 +38,8 @@
 
 Sequence diagram of the API:
 
+<img width="724" alt="Screenshot 2021-07-27 at 1 35 42 PM" src="https://user-images.githubusercontent.com/15737960/127101139-550372ea-467e-49b0-873f-2c9349a56d90.png">
+
 ```sequenceDiagram
   participant C as Client
   participant A as App
