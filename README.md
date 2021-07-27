@@ -1,3 +1,43 @@
+**Create User**
+----
+  Returns json data of id about a single user
+
+* **URL**
+
+  /users
+
+* **Method:**
+
+  `POST`
+  
+*  **Data Params**
+
+   **Required:**
+ 
+   `id1=[string]`
+   `id2=[string]`
+
+* **Success Response:**
+
+  * **Code:** 201 <br />
+    **Content:** `{ userId : "string", id1 : "string", id2: "string" }`
+ 
+* **Sample Call:**
+
+  ```http
+  POST /users HTTP/1.1
+  Host: 127.0.0.1:8080
+  Content-Type: application/json
+  Cache-Control: no-cache
+
+  {
+    "id1": "id1",
+    "id2": "id2"
+  }
+  ```
+
+Sequence diagram of the API:
+
 ```sequenceDiagram
   participant C as Client
   participant A as App

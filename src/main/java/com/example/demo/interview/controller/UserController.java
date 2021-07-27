@@ -25,18 +25,18 @@ public class UserController extends AbstractRESTfulController  {
 	@Autowired
 	UserService userService;
 
-    @GetMapping("/users")
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Get a paginated list of all users.", notes = "The list can be paginated by providing a page number with default 0 and a page size withdefault 10")
-    public @ResponseBody List<User> getUsers() {
-		return userService.getAllUsers();
-	}
+    // @GetMapping("/users")
+    // @ResponseStatus(HttpStatus.OK)
+    // @ApiOperation(value = "Get a paginated list of all users.", notes = "The list can be paginated by providing a page number with default 0 and a page size withdefault 10")
+    // public @ResponseBody List<User> getUsers() {
+	// 	return userService.getAllUsers();
+	// }
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Create user", notes = "Create the new user")
-	public String insertUser(@RequestBody User user) {
-		return userService.insertUser(user).getUserId().toString();
+	public User insertUser(@RequestBody User user) {
+		return userService.insertUser(user);
 	}
 
 }
