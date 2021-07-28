@@ -1,17 +1,22 @@
 version: '3'
 
 services:
-
   app:
     build: .
+    environment:
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+    links:
+      - redis
     ports:
       - 8080:8080
     networks:
-      - dev-network
+      - network
     depends_on:
-      - dev
+      - mysql
+      - redis
 
-  dev:
+  mysql:
     image: mysql:8.0.2
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -19,9 +24,22 @@ services:
     ports:
       - 3306:3306
     networks:
-      - dev-network
+      - network
     volumes:
       - ~/java/springboot/data/mysql-data:/var/lib/mysql
+  
+  redis:
+    image: redis:v1
+    container_name: redis
+    build: ./redis
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - "6379:6379"
+    networks:
+      - network
 
 networks:
-  dev-network:
+  network:
+    external: true

@@ -54,4 +54,8 @@ public class User {
 		return "User [id1 =" + id1 + ", id2 =" + id2 + "]";
 	}
 
+	public String toHashKey() {
+		return "user_" + id1 + id2;
+	}
+
 }
